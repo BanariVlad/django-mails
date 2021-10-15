@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Text</th>
+          <th scope="col">Subject</th>
+          <th scope="col">Is read</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for mail in mails %}
+            <tr>
+                <td>{{ mail.id }}</td>
+                <td>{{ mail.mail_text }}</td>
+                <td>{{ mail.mail_subject }}</td>
+                <td>{{ mail.mail_is_read }}</td>
+                <td>
+                     <form action="/mails/destroy/{{mail.id}}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                     </form>
+                     <form action="/mails/read/{{mail.id}}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Read</button>
+                     </form>
+                </td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</body>
+</html>
